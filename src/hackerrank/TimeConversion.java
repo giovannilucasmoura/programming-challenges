@@ -1,3 +1,5 @@
+package hackerrank;
+
 import java.io.*;
 
 public class TimeConversion {

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 public class DiagonalDifference {
 
     public static int diagonalDifference(List<List<Integer>> arr) {

@@ -32,27 +32,19 @@ public class CamelCase4 {
         } else {
             String[] split = words.split(" ");
             String combine = "";
-            if(type.equals("C")) {
-                for(int i = 0; i < split.length; i++) {
+
+            for(int i = 0; i < split.length; i++) {
+                if(i == 0 && (type.equals("M") || type.equals("V"))) {
+                    combine += split[i];
+                } else {
                     for(int j = 0; j < split[i].length(); j++) {
                         if(j == 0) combine += Character.toUpperCase(split[i].charAt(j));
                         else combine += split[i].charAt(j);
                     }
                 }
-            } else if(type.equals("M") || type.equals("V")) {
-                for(int i = 0; i < split.length; i++) {
-                    if(i == 0) {
-                        combine += split[i];
-                    } else {
-                        for(int j = 0; j < split[i].length(); j++) {
-                            if(j == 0) combine += Character.toUpperCase(split[i].charAt(j));
-                            else combine += split[i].charAt(j);
-                        }
-                    }
-                }
-
-                if(type.equals("M")) combine += "()";
             }
+
+            if(type.equals("M")) combine += "()";
 
             return combine;
         }

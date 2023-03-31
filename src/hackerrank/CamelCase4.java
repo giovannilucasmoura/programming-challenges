@@ -12,29 +12,50 @@ public class CamelCase4 {
         if(operation.equals("S")){
             String split = "";
 
-            if(type.equals("V")) {
-                int wordStart = 0;
-                for(int i = 0; i < words.length(); i++) {
-                    char c = words.charAt(i);
+            int wordStart = 0;
+            for(int i = 0; i < words.length(); i++) {
+                char c = words.charAt(i);
 
-                    if(Character.isUpperCase(c)){
-                        if(wordStart != 0) split += " ";
-                        split += words.substring(wordStart, i);
-                        wordStart = i;
-                    } else if(i == words.length() - 1) {
-                        split += " " + words.substring(wordStart, i + 1);
+                if(Character.isUpperCase(c)){
+                    if(wordStart != 0) split += " ";
+                    split += words.substring(wordStart, i);
+                    wordStart = i;
+                } else if(i == words.length() - 1) {
+                    split += " " + words.substring(wordStart, i + 1);
+                }
+            }
+
+            if(type.equals("M"))
+                split = split.replace("()", "");
+
+            return split.toLowerCase();
+        } else {
+            String[] split = words.split(" ");
+            String combine = "";
+            if(type.equals("C")) {
+                for(int i = 0; i < split.length; i++) {
+                    for(int j = 0; j < split[i].length(); j++) {
+                        if(j == 0) combine += Character.toUpperCase(split[i].charAt(j));
+                        else combine += split[i].charAt(j);
+                    }
+                }
+            } else if(type.equals("M") || type.equals("V")) {
+                for(int i = 0; i < split.length; i++) {
+                    if(i == 0) {
+                        combine += split[i];
+                    } else {
+                        for(int j = 0; j < split[i].length(); j++) {
+                            if(j == 0) combine += Character.toUpperCase(split[i].charAt(j));
+                            else combine += split[i].charAt(j);
+                        }
                     }
                 }
 
-                return split.toLowerCase();
+                if(type.equals("M")) combine += "()";
             }
-        } else if(operation.equals("C")) {
-            if(type == "M") {
 
-            }
+            return combine;
         }
-
-        return input;
     }
 
     public static void main(String[] args) {
@@ -44,6 +65,12 @@ public class CamelCase4 {
         strings.add("C;M;mouse pad");
         strings.add("C;C;code swarm");
         strings.add("S;C;OrangeHighlighter");
+        strings.add("S;M;plasticCup()");
+        strings.add("C;V;mobile phone");
+        strings.add("C;C;coffee machine");
+        strings.add("S;C;LargeSoftwareBook");
+        strings.add("C;M;white sheet of paper");
+        strings.add("S;V;pictureFrame");
 
         for(String str : strings) {
             System.out.println(camelCaseFormat(str));

@@ -1,7 +1,34 @@
 package hackerrank;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Stream;
+
 public class StrongPassword {
     public static int minimumNumber(String password) {
+        String[] characters = new String[] {"0123456789", "abcdefghijklmnopqrstuvwxyz",
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "!@#$%^&*()-+"};
+        Boolean[] containsCharacters = new Boolean[4];
+        Arrays.fill(containsCharacters, false);
+
+        for(char character : password.toCharArray()) {
+            for(int i = 0; i < containsCharacters.length; i++) {
+                if(!containsCharacters[i] && characters[i].indexOf(character) >= 0) {
+                    containsCharacters[i] = true;
+                }
+            }
+        }
+
+        int minimumAddedCharacters = (int) Arrays.stream(containsCharacters).filter(v -> !v).count();
+
+        if(password.length() + minimumAddedCharacters < 6) {
+            minimumAddedCharacters += 6 - (password.length() + minimumAddedCharacters);
+        }
+
+        return minimumAddedCharacters;
+    }
+
+    public static int minimumNumber_old(String password) {
         String numbers = "0123456789";
         String lowerCase = "abcdefghijklmnopqrstuvwxyz";
         String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

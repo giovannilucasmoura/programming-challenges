@@ -1,4 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+// from what i've read this probably only works on linux
+char* read_input(char* filename) {
+    char * buffer = 0;
+    long length;
+    FILE * f = fopen (filename, "r");
+
+    if (f) {
+        // move indicator to end of file
+        fseek (f, 0, SEEK_END);
+        // return current indicator position
+        length = ftell (f);
+        // back to beginning of file
+        fseek (f, 0, SEEK_SET);
+
+        buffer = malloc (length);
+
+        if (buffer) {
+            fread (buffer, 1, length, f);
+        }
+
+        fclose (f);
+    }
+
+    return buffer;
+}
 
 void swap(int* arr, int n, int m) {
     int aux = arr[m];

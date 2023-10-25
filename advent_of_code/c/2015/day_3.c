@@ -57,14 +57,39 @@ int main(int argc, char *argv[]) {
         c = *++inputStart;
     }
 
-    int gifted_houses = 0;
+    int gifted_houses_p1 = 0;
     for (int i = 0; i < x_size; i++) {
         for (int j = 0; j < y_size; j++) {
-            if(matrix[i][j] > 0) gifted_houses++;
+            if(matrix[i][j] > 0) gifted_houses_p1++;
         }
     }
 
-    printf("Part one answer: %d", gifted_houses);
+    memset(matrix, 0, sizeof(matrix));
+
+    inputStart = input;
+    c = *inputStart;
+
+    int xy_pos_santa[] = { x_size / 2, y_size / 2 };
+    int xy_pos_robot[] = { x_size / 2, y_size / 2 };
+
+    while (c != '\0') {
+        matrix[xy_pos_santa[0]][xy_pos_santa[1]]++;
+        move(xy_pos_santa, c);
+        c = *++inputStart;
+        matrix[xy_pos_robot[0]][xy_pos_robot[1]]++;
+        move(xy_pos_robot, c);
+        c = *++inputStart;
+    }
+
+    int gifted_houses_p2 = 0;
+    for (int i = 0; i < x_size; i++) {
+        for (int j = 0; j < y_size; j++) {
+            if(matrix[i][j] > 0) gifted_houses_p2++;
+        }
+    }
+
+    printf("Part one answer: %d\n", gifted_houses_p1);
+    printf("Part two answer: %d\n", gifted_houses_p2);
 
     free(input);
 

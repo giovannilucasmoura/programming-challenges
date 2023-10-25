@@ -40,6 +40,15 @@ void print_array(int* arr, int n) {
     printf("\n");
 }
 
+void print_matrix(int n, int m, int mat[n][m]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            printf("%d ", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int insertion_sort(int* arr, int n) {
     int key = 1;
 

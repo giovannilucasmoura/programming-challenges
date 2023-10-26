@@ -1,4 +1,4 @@
-#include "openssl/types.h"
+#include <openssl/types.h>
 #include <stdio.h>
 #include <openssl/evp.h>
 #include <string.h>
@@ -39,7 +39,23 @@ int main(int argc, char *argv[]) {
         i++;
     }
 
-    printf("Part one answer: %d", i);
+    int j = 0;
+    while(1) {
+        snprintf(str, 12, "%d", j);
+        char a[19] = "iwrupvqb";
+        strcat(a, str);
+        char* md5_hash = string_to_md5(a);
+        char digits[7];
+        snprintf(digits, 7, "%.06s", md5_hash);
+        free(md5_hash);
+        if(strcmp(digits, "000000") == 0) {
+            break;
+        }
+        j++;
+    }
+
+    printf("Part one answer: %d\n", i);
+    printf("Part two answer: %d\n", j);
 
     return 0;
 }

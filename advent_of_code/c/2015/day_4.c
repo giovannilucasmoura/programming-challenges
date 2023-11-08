@@ -21,41 +21,55 @@ char* string_to_md5(const char *str) {
     return buf;
 }
 
-int main(int argc, char *argv[]) {
+// returns the string to format what's going to be placed in the digits buffer
+char* digit_format_str(int len) {
+    // max size of hash (32) + other characters and null terminator
+    char* format = malloc(7);
+    sprintf(format, "%%.%.2ds", len);
+    format[6] = '\0';
+    return format;
+}
+
+long count_digits_for_hash(char* hash_start, const char* secret_key) {
     char str[12];
+    char h_start_len = strlen(hash_start);
+    int count = 0;
 
-    int i = 0;
     while(1) {
-        snprintf(str, 12, "%d", i);
-        char a[19] = "iwrupvqb";
+        // write current count as string into buffer str
+        snprintf(str, 12, "%d", count);
+
+        // write key and count string into a
+        char a[20];
+        strcpy(a, secret_key);
         strcat(a, str);
+
+        // generate hash from a
         char* md5_hash = string_to_md5(a);
-        char digits[6];
-        snprintf(digits, 6, "%.05s", md5_hash);
+
+        // store first digits of hash
+        char digits[h_start_len + 1];
+        snprintf(digits, h_start_len + 1, digit_format_str(h_start_len), md5_hash);
+
         free(md5_hash);
-        if(strcmp(digits, "00000") == 0) {
+
+        // break if hash start and digits are equal
+        if(strcmp(digits, hash_start) == 0) {
             break;
         }
-        i++;
+        count++;
     }
 
-    int j = 0;
-    while(1) {
-        snprintf(str, 12, "%d", j);
-        char a[19] = "iwrupvqb";
-        strcat(a, str);
-        char* md5_hash = string_to_md5(a);
-        char digits[7];
-        snprintf(digits, 7, "%.06s", md5_hash);
-        free(md5_hash);
-        if(strcmp(digits, "000000") == 0) {
-            break;
-        }
-        j++;
-    }
+    return count;
+}
 
-    printf("Part one answer: %d\n", i);
-    printf("Part two answer: %d\n", j);
+int main(int argc, char *argv[]) {
+    const char *secret_key =  "iwrupvqb";
+
+    long d1_answer = count_digits_for_hash("00000", secret_key);
+    printf("Part one answer: %ld\n", d1_answer);
+    long d2_answer = count_digits_for_hash("000000", secret_key);
+    printf("Part two answer: %ld\n", d2_answer);
 
     return 0;
 }

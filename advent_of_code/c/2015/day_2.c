@@ -34,7 +34,8 @@ int main(int argc, char *argv[]) {
     int total_ribbon_ft = 0;
     char* token = strtok_r(input, "\n", &ptr);
     while(token != NULL) {
-        char *str = malloc(strlen(token));
+        char *str = malloc(strlen(token) + 1);
+
         strcpy(str, token);
 
         int l = atoi(strtok(str, "x"));

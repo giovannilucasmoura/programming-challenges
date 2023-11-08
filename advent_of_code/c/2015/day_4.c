@@ -49,8 +49,10 @@ long count_digits_for_hash(char* hash_start, const char* secret_key) {
 
         // store first digits of hash
         char digits[h_start_len + 1];
-        snprintf(digits, h_start_len + 1, digit_format_str(h_start_len), md5_hash);
+        char* format_str = digit_format_str(h_start_len);
+        snprintf(digits, h_start_len + 1, format_str, md5_hash);
 
+        free(format_str);
         free(md5_hash);
 
         // break if hash start and digits are equal

@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(input);
+
     printf("Part one answer: %d\n", i);
     printf("Part two answer: %d\n", j);
 

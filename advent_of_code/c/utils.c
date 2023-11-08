@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "utils.h"
 
 // from what i've read this probably only works on linux
 char* read_input(char* filename) {

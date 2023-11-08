@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#include "../utils.c"
+#include "../utils.h"
 
 bool is_str_nice(char* str) {
     char c = *str;

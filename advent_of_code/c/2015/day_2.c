@@ -1,4 +1,4 @@
-#include "../utils.c"
+#include "../utils.h"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../utils.c"
+#include "../utils.h"
 
 void move(int xy[2], char c) {
     if(c == '<') {
